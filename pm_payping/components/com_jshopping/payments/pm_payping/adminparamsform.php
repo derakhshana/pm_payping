@@ -1,3 +1,15 @@
+<?php
+/**
+ * @version      1.00
+ * @author       Ali Derakhshan
+ * @package      pm_payping
+ * @copyright    Copyright (C) 2020
+ * @license      GNU/GPL
+ */
+defined('_JEXEC') or die('Restricted access');
+
+?>
+
 <div class="col100">
 <fieldset class="adminform">
 <table class="admintable" width = "100%" >
@@ -21,11 +33,11 @@
  </tr>
 	<tr>
    <td class="key">
-     <?php echo _JSHOP_TRANSACTION_END;?>
+     <?php echo _JSHOP_CURRENCY_PARAMETERS;?>
    </td>
    <td>
      <?php              
-     print JHTML::_('select.genericlist', array('1' => 'تومان' ,'10' => 'ریال'), 'pm_params[currency]', 'class = "inputbox" size = "1"', 'currency', 'name', $params['currency'] );
+     print JHTML::_('select.genericlist', array('1' => _JSHOP_PM_PAYPING_PAPINGCLASS_TOMAN_CURRENCY_LABLE, '10' => _JSHOP_PM_PAYPING_PAPINGCLASS_RIAL_CURRENCY_LABLE), 'pm_params[currency]', 'class = "inputbox" size = "1"', 'currency', 'name', $params['currency'] );
      echo " ".JHTML::tooltip('Select the currency');
      ?>
    </td>

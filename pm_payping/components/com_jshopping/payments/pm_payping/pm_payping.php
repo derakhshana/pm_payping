@@ -96,9 +96,9 @@ class pm_payping extends PaymentRoot
 		$payping1->Token = $pmconfigs['token'];
 		$payping1->Currency = $pmconfigs['currency'];
 
-		$code = $payping1->prepPayment($order);
+		$results = $payping1->prepPayment($order);
 		
-		$order->setPaymentParamsData(array('payment_code' => $code));
+		$order->setPaymentParamsData(array('payment_code' => $results['code']));
 		$order->store();
 ?>
         <html>
@@ -126,11 +126,19 @@ class pm_payping extends PaymentRoot
 					</td>
 					</tr>
 					<tr>
+					<tr>
+					<td>
+						<b>
+						<?php echo _JSHOP_PM_PAYPING_PAPINGCLASS_PAYMENT_AMOUNT_LABLE . ': '; ?>
+						</b>
+						<i><?php echo $results['amount'] . ' ' . _JSHOP_PM_PAYPING_PAPINGCLASS_TOMAN_CURRENCY_LABLE; ?></i>
+					</td>
+					</tr>
 					<td>
 						<b>
 						<?php echo _JSHOP_PM_PAYPING_ENDFORM_PAYMENT_PAYMENT_CODE_LABLE . ': ' ?>
 						</b>
-						<i><?php echo $code ?></i>
+						<i><?php echo $results['code'] ?></i>
 					</td>
 					</tr>
 					<tr>
@@ -140,7 +148,7 @@ class pm_payping extends PaymentRoot
 					</tr>
 					<tr>
 					<td>
-						<a class="button btn btn-primary" href="<?php echo "https://api.payping.ir/v2/pay/gotoipg/" . $code; ?>" >
+						<a class="button btn btn-primary" href="<?php echo "https://api.payping.ir/v2/pay/gotoipg/" . $results['code']; ?>" >
 						<?php echo(_JSHOP_PM_PAYPING_PAPINGCLASS_FINAL_PAYMENT_BOTTOM_LABLE); ?>
 						</a>
 					</td>

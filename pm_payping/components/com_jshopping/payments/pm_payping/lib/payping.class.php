@@ -14,10 +14,8 @@
 
 Class Payping
 {
-
-
 	/**
-	 * Payping token for OAuth2
+	 * Payping token for Bearer
 	 *
 	 * @var integer
 	 */
@@ -129,6 +127,8 @@ Class Payping
 		try
 		{
 			$curl = curl_init();
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt_array($curl, array(
 				CURLOPT_URL => "https://api.payping.ir/v2/pay/verify",
 				CURLOPT_RETURNTRANSFER => true,
@@ -208,6 +208,8 @@ Class Payping
 			try 
 			{
 				$curl = curl_init();
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt_array($curl, array(
 						CURLOPT_URL => "https://api.payping.ir/v2/pay",
 						CURLOPT_RETURNTRANSFER => true,
@@ -240,7 +242,7 @@ Class Payping
 						if (isset($response["code"]) and $response["code"] != '')
 						{								 
 							$code = $response["code"];
-							return $code;
+							return array('code' => $code, 'amount' => $Amount);
 						}
 						else
 						{
