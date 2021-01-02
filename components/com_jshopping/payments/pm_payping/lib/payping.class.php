@@ -150,7 +150,7 @@ Class Payping
 			if ($err)
 			{
 				$msg= _JSHOP_PM_PAYPING_PAPINGCLASS_CONECTION_TO_PAYPING_ERROR . '<br />' . $err ;
-				return array(0, $msg);
+				return array('rescode' => 0, 'restext' => $msg);
 			}
 			else
 			{
@@ -158,15 +158,15 @@ Class Payping
 				{
 					$msg = $this->getGateMsg($header['http_code']);
 					$msg .= _JSHOP_PM_PAYPING_PAPINGCLASS_REFERAL_CODE_LABLE . $refid;
-					return array(1, $msg);
+					return array('rescode' => 1, 'restext' => $msg, 'response' => json_decode($response, true));
 				} 
 				elseif ($header['http_code'] == 400)
 				{
-					$msg= _JSHOP_PM_PAYPING_PAPINGCLASS_VERIFY_NOT_SUCCESSFUL_ERROR .  implode('. ',array_values (json_decode($response, true))) ;					
-					return array(0, $msg);
+					$msg= _JSHOP_PM_PAYPING_PAPINGCLASS_VERIFY_NOT_SUCCESSFUL_ERROR .  implode('. ',array_values (json_decode($response, true)));
+					return array('rescode' => 0, 'restext' => $msg);
 				}  else {
 					$msg= _JSHOP_PM_PAYPING_PAPINGCLASS_VERIFY_NOT_SUCCESSFUL_ERROR . $this->getGateMsg($header['http_code']);
-					return array(0, $msg);
+					return array('rescode' => 0, 'restext' => $msg);
 				}
 			}
 		} catch (Exception $e)
