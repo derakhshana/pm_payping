@@ -75,13 +75,16 @@ class pm_payping extends PaymentRoot
 		}
 		
 		$transaction = $Inputs['refid'];		
-		$transactiondata = array('Refid'=>$Data['refid'], 'code'=>$Inputs['code'], 'cardnumber'=>$Inputs['cardnumber'], 'cardhashpan'=>$Inputs['cardhashpan']);
+		$transactiondata = array('code'=>$Inputs['code'], 'cardnumber'=>$Inputs['cardnumber'], 'cardhashpan'=>$Inputs['cardhashpan']);
 
 		$token = $pmconfigs['token'];
 		$Amount = floor(round($order->order_total, 0) / $pmconfigs['currency']); // Toman
 		$result = $payping1->Verify($Inputs['refid'], $Amount, $token);
 		
-		return array($result[0], $result[1] . '. ' . _JSHOP_ORDER_NUMBER . ': ' . $order->order_number . ' ' . _JSHOP_PM_PAYPING_PAPINGCLASS_REFERAL_CODE_LABLE . ': ' . $Inputs['refid'], $transaction, $transactiondata);		
+		if (!isset($Inputs['cardnumber']) && isset($result['response']['cardNumber']))
+			$transactiondata['cardnumber'] = $result['response']['cardNumber'];
+
+		return array($result['rescode'], $result['restext'] . '. ' . _JSHOP_ORDER_NUMBER . ': ' . $order->order_number . ' ' . _JSHOP_PM_PAYPING_PAPINGCLASS_REFERAL_CODE_LABLE . ': ' . $Inputs['refid'], $transaction, $transactiondata);
 	}
 
 
