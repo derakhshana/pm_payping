@@ -188,9 +188,9 @@ Class Payping
         $vars->order_hash = $order->order_hash;
         $vars->order_number = $order->order_number;
         $vars->orderpayment_amount = $order->order_total;
-		$vars->token = $this->Token;
-		$vars->currency = $this->Currency;
-		$var->payerName = $order->f_name . ' ' . $order->l_name;
+        $vars->token = $this->Token;
+        $vars->currency = $this->Currency;
+        $vars->payerName = $order->f_name . ' ' . $order->l_name;
         $vars->Email = $order->email;
 		if ($vars->token == null || $vars->token == '')
 		{
@@ -202,7 +202,7 @@ Class Payping
 			$Description = _JSHOP_PM_PAYPING_PAPINGCLASS_DESCRIPTION . ': ' . $vars->order_number;
 			$CallbackURL = $this->ReturnPath;
 			
-			$dataSend = array('payerName' => $var->payerName, 'Amount' => $Amount, 'payerIdentity'=> $vars->Email, 'returnUrl' => $CallbackURL, 'Description' => $Description, 'clientRefId' => $vars->order_hash);
+			$dataSend = array('payerName' => $vars->payerName, 'Amount' => $Amount, 'payerIdentity'=> $vars->Email, 'returnUrl' => $CallbackURL, 'Description' => $Description, 'clientRefId' => $vars->order_hash);
 			try 
 			{
 				$curl = curl_init();
