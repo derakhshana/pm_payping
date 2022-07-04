@@ -1,7 +1,5 @@
-PREPARE insertstm FROM "
-INSERT IGNORE INTO `ilakm_jshopping_payment_method`
+INSERT IGNORE INTO `#__jshopping_payment_method`
 SET
-	`payment_id`		=  ?,
 	`payment_code`          = 'payping',
 	`payment_class`         = 'pm_payping',
 	`scriptname`            = 'pm_payping',
@@ -14,6 +12,4 @@ SET
 	`tax_id`                = -1,
 	`show_descr_in_email`   = 0,
 	`name_en-GB`            = 'Payping peyment',
-	`name_fa-IR`            = 'درگاه پرداخت پی‌پینگ'";
- SET @id = (SELECT DISTINCT `payment_id` FROM ilakm_jshopping_payment_method WHERE scriptname='pm_payping' LIMIT 1);
-EXECUTE insertstm USING @id;
+	`name_fa-IR`            = 'درگاه پرداخت پی‌پینگ';
